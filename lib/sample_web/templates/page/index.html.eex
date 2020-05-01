@@ -1,0 +1,56 @@
+<%#
+result = Db.query( "select * from members" )
+data = result |> Db.columns_rows
+columns = result |> Db.columns
+%>
+
+<%
+result = Json.get( "https://qiita.com", "/api/v2/items?query=elixir" )
+data = result
+columns = [ "id", "title", "created_at", "likes_count" ]
+%>
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript">
+  google.load( "visualization", "1", { packages:[ "corechart" ] } );
+  google.setOnLoadCallback
+  (
+    function()
+    {
+      var data = new google.visualization.DataTable();
+      data.addColumn( 'string', 'コラム名' );
+      data.addColumn( 'number', 'いいね数' );
+      data.addRows
+      ( [
+<%= for record <- data do %>
+        [ '<%= record[ "title" ] %>', <%= record[ "likes_count" ] %> ], 
+<% end %>
+      ] );
+      var options = 
+      {
+        title: 'Qiitaコラム「いいね」数',
+        width: 1000, 
+        height: 600, 
+        chartArea: { width: '30%' }, 
+        legend: { position: "none" }, 
+      };
+      var chart = new google.visualization.BarChart( document.getElementById( 'likes' ) );
+      chart.draw( data, options );
+    }
+  );
+</script>
+<div id="likes" style="margin: 0px; padding: 0px; border: 10px #0000ff;"></div>
+
+<table border="1">
+<tr>
+  <%= for column <- columns do %>
+  <th><%= column %></td>
+  <% end %>
+</tr>
+<%= for record <- data do %>
+<tr>
+  <%= for column <- columns do %>
+  <td><%= record[ column ] %></td>
+  <% end %>
+</tr>
+<% end %>
+</table>
