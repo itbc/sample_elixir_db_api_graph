@@ -1,9 +1,9 @@
----
-# sample_elixir_db_api_graph
----
+# Sample Elixir + Phoenix framework + DB + API + Google Graph
 
-This is a sample Elixir and Phoenix Framework, 
-Reference wonderful site is https://qiita.com/piacerex/items/290b76b76d5ff8e019bf .
+
+#### This is a sample Elixir and Phoenix Framework, 
+#### Reference wonderful site is https://qiita.com/piacerex/items/290b76b76d5ff8e019bf .
+
 
 To start your Phoenix server:
 
